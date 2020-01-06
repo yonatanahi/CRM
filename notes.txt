@@ -1,0 +1,3 @@
+to add google font
+to check colors in README
+highlight which section the user is currently on in the navbar using state
