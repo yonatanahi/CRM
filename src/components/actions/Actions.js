@@ -32,12 +32,12 @@ class Actions extends Component {
   getOwners = () => {
     let owners = this.props.store.data.map(c => c.owner)
     owners = [...new Set(owners)]
-    return owners.map(o => <option value={o}>{o}</option>)
+    return owners.map(o => <option key={o} value={o}>{o}</option>)
   }
 
   getEmailType = () => {
     let types = ["A", "B", "C", "D"]
-    return types.map(t => <option value={t}>{t}</option>)
+    return types.map(t => <option key={t} value={t}>{t}</option>)
   }
 
   handleClientChange = (event) => {
@@ -76,7 +76,7 @@ class Actions extends Component {
   }
 
   getClients = () => {
-    return this.props.store.data.map(c => <option value={c.name}></option>)
+    return this.props.store.data.map(c => <option key={c.id} value={c.name}></option>)
   }
 
   render() {
@@ -88,8 +88,8 @@ class Actions extends Component {
           {this.getClients()}
         </datalist>
         <div id="updateClient">
-          <div>Transfer ownership to:</div><select value={this.state.owner} onChange={this.handleOwnerChange}><option value="" disabled selected>Owner</option>{this.getOwners()}</select><button className="button" onClick={this.handleOwnerSubmit}>TRANSFER</button>
-          <div>Send email:</div><select onChange={this.handleEmailChange}><option value="" disabled selected>Email Type</option>{this.getEmailType()}</select><button className="button" onClick={this.handleEmailSubmit}>SEND</button>
+          <div>Transfer ownership to:</div><select value={this.state.owner} onChange={this.handleOwnerChange}><option value="" disabled defaultValue>Owner</option>{this.getOwners()}</select><button className="button" onClick={this.handleOwnerSubmit}>TRANSFER</button>
+          <div>Send email:</div><select onChange={this.handleEmailChange}><option value="" disabled defaultValue>Email Type</option>{this.getEmailType()}</select><button className="button" onClick={this.handleEmailSubmit}>SEND</button>
           <div>Declare sale!</div><span></span><button className="button" onClick={this.handleSoldSubmit}>DECLARE</button>
         </div>
 

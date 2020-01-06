@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
 import Client from './Client'
 import Header from './Header'
+
+
 @inject("store")
-
-
 @observer
 class Clients extends Component {
   constructor(props) {
@@ -24,15 +24,14 @@ class Clients extends Component {
 
    await  this.setState({
       [name]: value
-    });
-    console.log(this.state);
-    
+    });    
   }
-
+  
+  
   getData = (filter) => {
     let clients = this.props.store.data
     let search = this.state.search.toLowerCase()
-
+        
     if(filter==="Name"){
        clients = clients.filter(c => c.name.toLowerCase().includes(search))
     }else if(filter === "Country"){
@@ -40,12 +39,12 @@ class Clients extends Component {
     }else if(filter === "Email"){
       clients = clients.filter(c => c.emailType ? c.emailType.toLowerCase().includes(search) : null)      
     }else if(filter === "Sold"){
-      clients = clients.filter(c => c.sold === true)      
+      clients = clients.filter(c => c.sold === 1)      
     }else if(filter === "Owner"){
       clients = clients.filter(c => c.owner.toLowerCase().includes(search))      
     }
     
-    return  clients.map(c => <Client client={c}></Client>)
+    return  clients.map(c => <Client key={c.id} client={c}></Client>)
   }
 
 
@@ -55,7 +54,7 @@ class Clients extends Component {
       <div>
         <input placeholder="Search" onChange={this.handleInputChange} name="search"></input>
         <select id="search" onChange={this.handleInputChange} name="filter">
-          <option  value="Name" selected>Name</option>
+          <option  value="Name" defaultValue>Name</option>
           <option value="Country">Country</option>
           <option value="Email">Email</option>
           <option value="Sold">Sold</option>

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import { inject } from 'mobx-react'
 
@@ -8,11 +8,12 @@ import { inject } from 'mobx-react'
 class SalesByCountry extends PureComponent {
 
     render() {
+        
         return (
             <div className="inline-block">
                 Sales By Country
                 <BarChart
-                    width={500}
+                    width={600}
                     height={300}
                     data={this.props.store.getSalesByCountry()}
                     margin={{

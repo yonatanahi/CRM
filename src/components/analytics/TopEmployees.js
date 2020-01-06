@@ -4,40 +4,22 @@
 // Only show the Top 3 employees (owners)
 
 import React, { PureComponent } from 'react';
-import {
-    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { inject } from 'mobx-react'
 
 @inject('store')
 class TopEmployees extends PureComponent {
-    getTopEmployees = () => {
-        let data = this.props.store.data.filter(c => c.sold === true)
-        let owners = [...new Set(data.map(c => c.owner))]
-        owners = owners.map(c => { return { name: c, sales: 0 } })
-        for (let owner of owners) {
-            for (let client of data) {
-                if (client.owner === owner.name) {
-                    owner.sales++
-                }
-            }
-        }
-
-        owners.sort(function (a, b) {
-            return a["sales"] - b["sales"];
-        });
-        return owners.splice(-3, 3).reverse()
-    }
 
 
     render() {
+        let data=this.props.store.getTopEmployees()
         return (
             <div className="inline-block">
                 Top Employees
                 <BarChart
                     width={500}
                     height={300}
-                    data={this.getTopEmployees()}
+                    data={data}
                     layout={"vertical"}
                     margin={{
                         top: 5, right: 30, left: 20, bottom: 5,

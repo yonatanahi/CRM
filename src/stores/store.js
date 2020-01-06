@@ -14,8 +14,8 @@ const axios = require('axios');
 //   }
 
 
-export class Store {
-    @observable data = {}
+class Store {
+    @observable data = []
 
     @action updateClient = (id, firstname, surname, country) => {
         let client = this.data.find(c => c._id === id)
@@ -55,7 +55,7 @@ export class Store {
 
     @action getEmails = () => {
         let count = 0
-        for (let c of data) {
+        for (let c of this.data) {
             if (c.emailType) {
                 count++
             }
@@ -112,12 +112,30 @@ export class Store {
     }
 
 
-
-
-
     getClients = async () => {
         const response = await axios.get("http://localhost:3001/clients")
-        this.data = response.data
+        this.data = response.data[0]
     }
 
+    getTopEmployees = () => {
+        let data = this.data.filter(c => c.sold === 1)
+
+        let owners = [...new Set(data.map(c => c.owner))]
+        owners = owners.map(c => { return { name: c, sales: 0 } })
+        for (let owner of owners) {
+            for (let client of data) {
+                if (client.owner === owner.name) {
+                    owner.sales++
+                }
+            }
+        }
+
+        owners.sort(function (a, b) {
+            return a["sales"] - b["sales"];
+        });
+
+        return owners.splice(-3, 3).reverse()
+    }
 }
+
+export {Store}

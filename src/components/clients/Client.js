@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import { observer, inject } from 'mobx-react'
+import CheckIcon from '@material-ui/icons/Check';
 const moment = require('moment')
 
 @inject("store")
@@ -19,16 +20,19 @@ class Client extends Component {
         let lastName = name[1]
         let firstContact = moment(client.firstContact).format("l")
         return (
-            <tr className="client" onClick={this.updateClient}>
-                <td>{fisrtName}</td>
-                <td>{lastName}</td>
-                <td>{client.country}</td>
+            <tbody>
+                <tr className="client" onClick={this.updateClient}>
+                    <td>{fisrtName}</td>
+                    <td>{lastName}</td>
+                    <td>{client.country}</td>
 
-                <td>{firstContact}</td>
-                <td>{client.emailType ? client.emailType : "-"}</td>
-                <td>{client.sold ? <i className="material-icons">check</i> : "-" }</td>
-                <td>{client.owner}</td>
-            </tr>
+                    <td>{firstContact}</td>
+                    <td>{client.emailType !== "null" ? client.emailType : "-"}</td>
+                    <td>{client.sold ? <CheckIcon/> : "-"}</td>
+                    <td>{client.owner}</td>
+                </tr>
+            </tbody>
+
         )
     }
 }

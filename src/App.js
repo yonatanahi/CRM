@@ -12,8 +12,8 @@ import { inject } from 'mobx-react'
 @observer
 class App extends Component {
   
-  async componentDidMount() {
-    await this.props.store.getClients()
+  componentDidMount() {
+    this.props.store.getClients()    
   }
 
   render() {

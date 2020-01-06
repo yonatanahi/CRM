@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import SalesByCountry from './SalesByCountry'
 import TopEmployees from './TopEmployees'
 
-
+@inject('store')
 @observer
 class Charts extends Component {
 
